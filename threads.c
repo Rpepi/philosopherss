@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:26 by rpepi             #+#    #+#             */
-/*   Updated: 2024/05/28 11:57:10 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/05/28 14:12:56 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_routine(void *pointer)
 	philo = (t_philo *)pointer;
 	data = philo->data;
 	if (philo->id % 2)
-		usleep(15000);
+		ft_sleep(1, data);
 	while (!(data->one_is_dead))
 	{
 		eating(philo);

@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:14 by rpepi             #+#    #+#             */
-/*   Updated: 2024/05/28 11:56:16 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/05/28 14:14:30 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	dead_check(t_data *data, t_philo *philo)
 				data->one_is_dead = 1;
 			}
 			pthread_mutex_unlock(&(data->meals_mutex));
-			usleep(100);
+			ft_sleep(1, data);
 		}
 		if (data->one_is_dead)
 			break ;

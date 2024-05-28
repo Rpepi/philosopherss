@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:31 by rpepi             #+#    #+#             */
-/*   Updated: 2024/05/28 11:57:24 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/05/28 14:16:36 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	ft_sleep(long long time, t_data *data)
 	{
 		if (time_diff(i, get_current_time()) >= time)
 			break ;
-		usleep(50);
+		usleep(10);
 	}
 }
