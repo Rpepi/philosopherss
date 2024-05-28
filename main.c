@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepi <pepi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 17:13:25 by pepi              #+#    #+#             */
-/*   Updated: 2024/05/13 10:40:26 by pepi             ###   ########.fr       */
+/*   Created: 2024/05/28 11:56:10 by rpepi             #+#    #+#             */
+/*   Updated: 2024/05/28 11:56:11 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,20 @@ static int	check_args(char **argv)
 	return (0);
 }
 
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    t_data  data;
-	
-   if (argc != 5 && argc != 6)
+	t_data	data;
+
+	if (argc != 5 && argc != 6)
 		return (write(2, "ERROR : invalid number of arguments", 36), 1);
 	if (check_args(argv) == 1)
 	{
 		write(1, "fuck this shit", 15);
 		return (1);
 	}
-    if (ft_init_all(&data, argv))
+	if (ft_init_all(&data, argv))
 		return (1);
 	if (create_threads(&data))
-			return (1);
-    return (0);
+		return (1);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepi <pepi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 18:03:48 by pepi              #+#    #+#             */
-/*   Updated: 2024/05/13 10:49:11 by pepi             ###   ########.fr       */
+/*   Created: 2024/05/28 11:55:51 by rpepi             #+#    #+#             */
+/*   Updated: 2024/05/28 11:55:54 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	sleeping(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = philo->data;
 	pthread_mutex_lock(&(data->fork_mutex[philo->l_fork_id]));

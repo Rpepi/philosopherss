@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pepi <pepi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 17:37:24 by pepi              #+#    #+#             */
-/*   Updated: 2024/05/13 10:48:23 by pepi             ###   ########.fr       */
+/*   Created: 2024/05/28 11:56:31 by rpepi             #+#    #+#             */
+/*   Updated: 2024/05/28 11:57:24 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ long long	time_diff(long long past, long long pres)
 	return (pres - past);
 }
 
-void		ft_sleep(long long time, t_data *data)
+void	ft_sleep(long long time, t_data *data)
 {
-	long long i;
+	long long	i;
 
 	i = get_current_time();
 	while (!(data->one_is_dead))
