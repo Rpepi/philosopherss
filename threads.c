@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:26 by rpepi             #+#    #+#             */
-/*   Updated: 2024/05/28 14:12:56 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/06/12 12:49:20 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	*ft_routine(void *pointer)
 
 	philo = (t_philo *)pointer;
 	data = philo->data;
-	if (philo->id % 2)
-		ft_sleep(1, data);
+	if (philo->id % 2 && data->nb_philos > 1)
+		usleep(15000);
 	while (!(data->one_is_dead))
 	{
 		eating(philo);
 		if (data->all_have_eat)
 			break ;
 		sleeping(philo);
-		thinking(philo);
+		message("is thinking", data, philo->id);
 	}
 	return (NULL);
 }
@@ -35,19 +35,60 @@ void	*ft_routine(void *pointer)
 int	create_threads(t_data *data)
 {
 	int		i;
-	t_philo	*philo;
 
 	i = 0;
-	philo = data->philos;
-	data->starting_time = get_current_time();
+	data->starting_time = curr_time();
 	while (i < data->nb_philos)
 	{
-		if (pthread_create(&(philo[i].thread), NULL, ft_routine, &(philo[i])))
+		if (pthread_create(&(data->philos[i].thread),
+				NULL, ft_routine, &(data->philos[i])))
 			return (1);
-		philo[i].last_meal = get_current_time();
+		data->philos[i].last_meal = curr_time();
 		i++;
 	}
 	dead_check(data, data->philos);
-	exit_threads(data, philo);
+	exit_threads(data, data->philos);
 	return (0);
+}
+
+void	dead_check(t_data *data, t_philo *philo)
+{
+	int	i;
+
+	while (!(data->all_have_eat))
+	{
+		i = -1;
+		while (++i < data->nb_philos && !(data->one_is_dead))
+		{
+			pthread_mutex_lock(&(data->meals_mutex));
+			if (time_diff(philo[i].last_meal, curr_time()) > data->time_to_die)
+			{
+				message("died", data, philo->id);
+				data->one_is_dead = 1;
+			}
+			pthread_mutex_unlock(&(data->meals_mutex));
+			usleep(100);
+		}
+		if (data->one_is_dead)
+			break ;
+		i = 0;
+		while (data->nb_meals != -1 && i < data->nb_philos
+			&& philo[i].nb_meals_eated >= data->nb_meals)
+			i++;
+		if (i == data->nb_philos)
+			data->all_have_eat = 1;
+	}
+}
+
+void	exit_threads(t_data *data, t_philo *philo)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->nb_philos)
+		pthread_join(philo[i].thread, NULL);
+	i = -1;
+	while (++i < data->nb_philos)
+		pthread_mutex_destroy(&(data->fork_mutex[i]));
+	pthread_mutex_destroy(&(data->writing));
 }

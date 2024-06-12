@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:20 by rpepi             #+#    #+#             */
-/*   Updated: 2024/05/28 11:56:23 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/06/12 12:49:35 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,15 @@ typedef struct s_data
 	t_philo			philos[200];
 }					t_data;
 
-int					ft_atoi(const char *str);
-long long			get_current_time(void);
+int					ft_atoi(const char *nptr);
+long long			curr_time(void);
 int					ft_init_all(t_data *data, char **argv);
 int					create_threads(t_data *data);
 void				*ft_routine(void *pointer);
-void				exit_threads(t_data *data, t_philo *philos);
+void				exit_threads(t_data *data, t_philo *philo);
 void				eating(t_philo *philo);
 void				sleeping(t_philo *philo);
-void				thinking(t_philo *philo);
-void				message(char *str, t_philo *philo);
-int					ft_usleep(size_t milliseconds);
+void				message(char *str, t_data *data, int philo_id);
 void				dead_check(t_data *data, t_philo *philo);
 long long			time_diff(long long past, long long pres);
 void				ft_sleep(long long time, t_data *data);

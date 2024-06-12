@@ -20,7 +20,6 @@ NC 		= \033[0m
 SRC_FILES	=	action \
 				init   \
 				main  \
-				monitor \
 				threads \
 				utils \
 

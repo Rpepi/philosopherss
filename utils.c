@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:31 by rpepi             #+#    #+#             */
-/*   Updated: 2024/05/28 14:16:36 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/06/12 12:49:49 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,28 @@
 
 int	ft_atoi(const char *str)
 {
-	int				neg;
-	int				i;
-	unsigned long	num;
+	long int	n;
+	int			sign;
 
-	i = 0;
-	neg = 1;
-	num = 0;
-	while (str[i] == ' ' || ((9 <= str[i]) && (str[i] <= 13)))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	n = 0;
+	sign = 1;
+	while ((*str <= 13 && *str >= 9) || *str == 32)
+		str++;
+	if (*str == '-')
+		return (-1);
+	else if (*str == '+')
+		str++;
+	while (*str)
 	{
-		if (str[i] == '-')
-			neg *= -1;
-		i++;
+		if (*str >= '0' && *str <= '9')
+			n = n * 10 + (*str++ - '0');
+		else
+			return (-1);
 	}
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		num = num * 10 + (str[i] - 48);
-		i++;
-	}
-	return (num * neg);
+	return ((int)(n * sign));
 }
 
-long long	get_current_time(void)
+long long	curr_time(void)
 {
 	struct timeval	t;
 
@@ -54,11 +52,11 @@ void	ft_sleep(long long time, t_data *data)
 {
 	long long	i;
 
-	i = get_current_time();
+	i = curr_time();
 	while (!(data->one_is_dead))
 	{
-		if (time_diff(i, get_current_time()) >= time)
+		if (time_diff(i, curr_time()) >= time)
 			break ;
-		usleep(10);
+		usleep(50);
 	}
 }

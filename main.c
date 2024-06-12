@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:10 by rpepi             #+#    #+#             */
-/*   Updated: 2024/05/28 11:56:11 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/06/11 13:06:51 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int	main(int argc, char **argv)
 	if (argc != 5 && argc != 6)
 		return (write(2, "ERROR : invalid number of arguments", 36), 1);
 	if (check_args(argv) == 1)
-	{
-		write(1, "fuck this shit", 15);
 		return (1);
-	}
 	if (ft_init_all(&data, argv))
 		return (1);
 	if (create_threads(&data))
