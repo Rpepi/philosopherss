@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:55:51 by rpepi             #+#    #+#             */
-/*   Updated: 2024/06/14 16:09:31 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/06/18 15:23:52 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	eating(t_philo *philo)
 	message("has taken a fork", data, philo->id);
 	if (data->nb_philos == 1)
 	{
-		ft_sleep(200, data);
+		ft_sleep(data->time_to_die, data);
 		message("has died", data, philo->id);
 		data->one_is_dead = 1;
 		return ;
