@@ -46,10 +46,10 @@ To compile the project, follow these steps:
 
 1. Clone the repository:
    
-   git clone git@github.com:Rpepi/philosopherss.git
+   https://github.com/Rpepi/philosopherss.git
    
-2. Compile the program using make
-3. 
+3. Compile the program using make
+   
    The executable philo will be generated.
 
 ## Usage
