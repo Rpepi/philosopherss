@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:26 by rpepi             #+#    #+#             */
-/*   Updated: 2024/06/12 12:49:20 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/06/18 13:26:01 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ void	*ft_routine(void *pointer)
 	data = philo->data;
 	if (philo->id % 2 && data->nb_philos > 1)
 		usleep(15000);
-	while (!(data->one_is_dead))
+	while (!data->one_is_dead && !data->all_have_eat)
 	{
 		eating(philo);
-		if (data->all_have_eat)
-			break ;
 		sleeping(philo);
 		message("is thinking", data, philo->id);
 	}
@@ -55,10 +53,10 @@ void	dead_check(t_data *data, t_philo *philo)
 {
 	int	i;
 
-	while (!(data->all_have_eat))
+	while (!data->all_have_eat)
 	{
 		i = -1;
-		while (++i < data->nb_philos && !(data->one_is_dead))
+		while (++i < data->nb_philos && !data->one_is_dead)
 		{
 			pthread_mutex_lock(&(data->meals_mutex));
 			if (time_diff(philo[i].last_meal, curr_time()) > data->time_to_die)
@@ -67,16 +65,14 @@ void	dead_check(t_data *data, t_philo *philo)
 				data->one_is_dead = 1;
 			}
 			pthread_mutex_unlock(&(data->meals_mutex));
-			usleep(100);
 		}
 		if (data->one_is_dead)
 			break ;
 		i = 0;
-		while (data->nb_meals != -1 && i < data->nb_philos
-			&& philo[i].nb_meals_eated >= data->nb_meals)
+		while (data->nb_meals && i < data->nb_philos
+			&& philo[i].nb_meals_eated == data->nb_meals)
 			i++;
-		if (i == data->nb_philos)
-			data->all_have_eat = 1;
+		data->all_have_eat = (i == data->nb_philos);
 	}
 }
 
@@ -91,4 +87,5 @@ void	exit_threads(t_data *data, t_philo *philo)
 	while (++i < data->nb_philos)
 		pthread_mutex_destroy(&(data->fork_mutex[i]));
 	pthread_mutex_destroy(&(data->writing));
+	pthread_mutex_destroy(&(data->meals_mutex));
 }

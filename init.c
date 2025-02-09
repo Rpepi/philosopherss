@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:06 by rpepi             #+#    #+#             */
-/*   Updated: 2024/06/12 12:47:30 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/06/14 15:57:03 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	ft_init_all(t_data *data, char **argv)
 	else
 		data->nb_meals = -1;
 	data->one_is_dead = 0;
+	data->all_have_eat = 0;
 	if (init_mutex(data) == 1)
 		return (1);
 	if (ft_init_philos(data) == 1)

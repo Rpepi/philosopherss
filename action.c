@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:55:51 by rpepi             #+#    #+#             */
-/*   Updated: 2024/06/12 13:06:31 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/06/18 15:23:52 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	message(char *str, t_data *data, int philo_id)
 {
 	pthread_mutex_lock(&(data->writing));
-	if (!(data->one_is_dead))
+	if (!data->one_is_dead && !data->all_have_eat)
 	{
 		printf("%lli ", curr_time() - data->starting_time);
 		printf("%i ", philo_id + 1);
@@ -43,7 +43,7 @@ void	eating(t_philo *philo)
 	message("has taken a fork", data, philo->id);
 	if (data->nb_philos == 1)
 	{
-		ft_sleep(200, data);
+		ft_sleep(data->time_to_die, data);
 		message("has died", data, philo->id);
 		data->one_is_dead = 1;
 		return ;
@@ -55,7 +55,7 @@ void	eating(t_philo *philo)
 	philo->last_meal = curr_time();
 	pthread_mutex_unlock(&(data->meals_mutex));
 	ft_sleep(data->time_to_eat, data);
-	(philo->nb_meals_eated)++;
+	philo->nb_meals_eated++;
 	pthread_mutex_unlock(&(data->fork_mutex[philo->l_fork_id]));
 	pthread_mutex_unlock(&(data->fork_mutex[philo->r_fork_id]));
 }

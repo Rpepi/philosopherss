@@ -6,7 +6,7 @@
 /*   By: rpepi <rpepi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:56:20 by rpepi             #+#    #+#             */
-/*   Updated: 2024/06/12 12:49:35 by rpepi            ###   ########.fr       */
+/*   Updated: 2024/06/18 15:24:24 by rpepi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <stdatomic.h>
 
 # define PHILO_MAX 200
 
 typedef struct s_philo
 {
 	int				id;
-	long long		last_meal;
+	atomic_llong	last_meal;
 	int				l_fork_id;
 	int				r_fork_id;
-	int				nb_meals_eated;
+	atomic_int		nb_meals_eated;
 	pthread_t		thread;
 	struct s_data	*data;
 }					t_philo;
@@ -41,7 +42,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				time_to_eat;
 	int				nb_meals;
-	int				all_have_eat;
+	atomic_int		all_have_eat;
 	long long		starting_time;
 	int				one_is_dead;
 	pthread_mutex_t	fork_mutex[250];
